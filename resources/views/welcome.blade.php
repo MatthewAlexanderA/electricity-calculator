@@ -18,99 +18,117 @@
             </a>
         </div>
     </nav>
-    
-    <div class="container text-center">
+
+    <div class="text-center">
         <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4">
-                <div class="mt-5 p-3 bg-info bg-opacity-10 border border-info rounded">
-                    <h4>Timer</h4>
-                    <div id="timer" class="pb-1">00:00:00</div>
-                    <button onclick="startTimer()" class="btn btn-success">Start</button>
-                    <button onclick="stopTimer()" class="btn btn-danger">Stop</button>
+            <div class="col-7">
+                <div class="row mt-5">
+                    <div class="col-2"></div>
+                    <div class="col-8">
+                        <div class="p-3 bg-dark bg-opacity-10 border border-dark rounded">
+                            <form method="POST" action="/calculate">
+                                @csrf
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="device">Typical Appliance</span>
+                                    <select class="form-select" name="device" id="device">
+                                        <option selected disabled>Define your own</option>
+                                        <option value='zero_watt_bulb'>Zero Watt Bulb</option>
+                                        <option value='cfl_bulb'>CFL bulb</option>
+                                        <option value='bulb'>Bulb</option>
+                                        <option value='tube_light'>Tube Light</option>
+                                        <option value='ceiling_fan'>Ceiling Fan</option>
+                                        <option value='fridge_165_litre'>Fridge 165 Litre</option>
+                                        <option value='mixie'>Mixie</option>
+                                        <option value='washing_machine'>Washing Machine</option>
+                                        <option value='iron_box'>Iron Box</option>
+                                        <option value='water_pump'>Water Pump</option>
+                                        <option value='vacuum_cleaner'>Vacuum Cleaner</option>
+                                        <option value='television'>Television</option>
+                                        <option value='tape_recorder'>Tape Recorder</option>
+                                        <option value='video_player'>Video Player</option>
+                                        <option value='mobile_charger'>Mobile Charger</option>
+                                        <option value='computer'>Computer</option>
+                                        <option value='air_conditioner'>Air Conditioner</option>
+                                    </select>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="time">Usage</span>
+                                    <input type="hidden" name="time" id="timeInput">
+                                    <input type="text" id="displayTime" class="form-control" name="time"
+                                        placeholder="00:00:00">
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="price">Electricity Price</span>
+                                    <span class="input-group-text" id="price">Rp</span>
+                                    <input type="text" class="form-control" placeholder="Electricity Price"
+                                        aria-label="Electricity Price" aria-describedby="price" name="usage" id="price"
+                                        oninput="formatNumber(this)" />
+                                    <span class="input-group-text">per kWh</span>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Calculate</button>
+                                <button type="reset" class="btn btn-secondary">Reset</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-8">
+                        <div class="mt-5 p-3 bg-info bg-opacity-10 border border-info rounded">
+                            <h4>Timer</h4>
+                            <div id="timer" class="pb-1">00:00:00</div>
+                            <button onclick="startTimer()" class="btn btn-success">Start</button>
+                            <button onclick="stopTimer()" class="btn btn-danger">Stop</button>
+                        </div>
+                    </div>
+                    <div class="col-2"></div>
                 </div>
             </div>
-            <div class="col-4"></div>
-        </div>
 
-        <div class="row mt-5">
-            <div class="col-3"></div>
-            <div class="col-6">
-                <div class="p-3 bg-dark bg-opacity-10 border border-dark rounded">
-                    <form method="POST" action="/calculate">
-                        @csrf
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="device">Typical Appliance</span>
-                            <select class="form-select" name="device" id="device">
-                                <option selected disabled>Define your own</option>
-                                <option value='zero_watt_bulb'>Zero Watt Bulb</option>
-                                <option value='cfl_bulb'>CFL bulb</option>
-                                <option value='bulb'>Bulb</option>
-                                <option value='tube_light'>Tube Light</option>
-                                <option value='ceiling_fan'>Ceiling Fan</option>
-                                <option value='fridge_165_litre'>Fridge 165 Litre</option>
-                                <option value='mixie'>Mixie</option>
-                                <option value='washing_machine'>Washing Machine</option>
-                                <option value='iron_box'>Iron Box</option>
-                                <option value='water_pump'>Water Pump</option>
-                                <option value='vacuum_cleaner'>Vacuum Cleaner</option>
-                                <option value='television'>Television</option>
-                                <option value='tape_recorder'>Tape Recorder</option>
-                                <option value='video_player'>Video Player</option>
-                                <option value='mobile_charger'>Mobile Charger</option>
-                                <option value='computer'>Computer</option>
-                                <option value='air_conditioner'>Air Conditioner</option>
-                            </select>
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="time">Usage</span>
-                            <input type="hidden" name="time" id="timeInput">
-                            <input type="text" id="displayTime" disabled class="form-control" placeholder="00:00:00">
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="price">Electricity Price</span>
-                            <span class="input-group-text" id="price">Rp</span>
-                            <input type="text" class="form-control" placeholder="Electricity Price"
-                                aria-label="Electricity Price" aria-describedby="price" name="usage" id="price" oninput="formatNumber(this)" />
-                            <span class="input-group-text">per kWh</span>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Calculate</button>
-                        <button type="reset" class="btn btn-secondary">Reset</button>
-                    </form>
+            <div class="col-5">
+                <div class="row">
+                    <div class="col-10">
+                        @if(!empty($timeSpan) && !empty($eUsage) && !empty($cost))
+                            <div class="mt-5">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table class="table table-bordered">
+                                            <thead class="table-primary">
+                                                <tr>
+                                                    <th scope="col">Electricity usage</th>
+                                                    <th scope="col">Cost</th>
+                                                    <th scope="col">Time Span</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        {{ $eUsage }}
+                                                        kWh</td>
+                                                    <td>Rp
+                                                        {{ number_format($cost, 0, ',', '.') }}
+                                                    </td>
+                                                    <td>{{ $timeSpan }} Second</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            @if($eUsage > 8000)
+                                <div class="alert alert-danger" role="alert">
+                                    Penggunaan peralatan listrik anda berlebihan!
+                                </div>
+                            @endif
+                        @endif
+                    </div>
                 </div>
             </div>
-            <div class="col-3"></div>
         </div>
-
-        @if (!empty($timeSpan) && !empty($eUsage) && !empty($cost))
-        <div class="mt-5">
-            <div class="row">
-                <div class="col-2"></div>
-                <div class="col-8">
-                    <table class="table table-bordered">
-                        <thead class="table-primary">
-                            <tr>
-                                <th scope="col">Electricity usage</th>
-                                <th scope="col">Cost</th>
-                                <th scope="col">Time Span</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{ number_format($eUsage, 0, ',', '.') }} kWh</td>
-                                <td>Rp {{ number_format($cost, 0, ',', '.') }}</td>
-                                <td>{{ $timeSpan }} Second</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-2"></div>
-            </div>
-        </div>
-        @endif
-
     </div>
 
     {{-- Timer --}}
@@ -153,16 +171,25 @@
     {{-- Auto Currency --}}
     <script>
         function formatNumber(input) {
-          // Remove non-numeric characters
-          let value = input.value.replace(/\D/g, '');
-    
-          // Format the number with commas
-          value = new Intl.NumberFormat().format(value);
-    
-          // Update the input field with the formatted number
-          input.value = value;
+            // Remove non-numeric characters
+            let value = input.value.replace(/\D/g, '');
+
+            // Format the number with commas
+            value = new Intl.NumberFormat().format(value);
+
+            // Update the input field with the formatted number
+            input.value = value;
         }
-      </script>
+
+    </script>
+
+    {{-- Auto input 00:00:00 --}}
+    <script>
+        window.onload = function () {
+            document.getElementById('displayTime').value = '00:00:00';
+        };
+
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
