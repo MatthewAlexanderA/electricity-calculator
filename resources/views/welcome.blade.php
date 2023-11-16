@@ -14,7 +14,7 @@
     <nav class="navbar bg-primary" data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand ms-3" href="#">
-                Electricity Calculator
+                Electricity Calculator.
             </a>
         </div>
     </nav>
